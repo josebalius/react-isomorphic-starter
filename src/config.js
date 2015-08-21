@@ -3,12 +3,12 @@ export default {
   productionAPI: '',
   developmentAPI: 'http://localhost:3000/api',
   productionCss: [
-    //'/bundle.css',
-    '/bundle-lib.css'
+    '/bundle-lib.css',
+    '/bundle.css'
   ],
   developmentCss: [
-    //'/bundle.css',
-    '/bundle-lib.css'
+    '/bundle-lib.css',
+    '/bundle.css'
   ],
   productionScripts: [
     '/bundle.js',
@@ -21,6 +21,6 @@ export default {
   ],
 
   get(key) {
-    return this[process.env.NODE_ENV === 'production'] ? `production${key}` : `development${key}`;
+    return this[process.env.NODE_ENV === 'production' ? `production${key}` : `development${key}`];
   }
 }

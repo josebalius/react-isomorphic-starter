@@ -44,14 +44,3 @@ gulp.task('server', ['server-build', 'bower-generate', 'bower-generate-css'], fu
 });
 
 gulp.task('build', ['server-build', 'bower-generate', 'bower-generate-css']);
-
-function string_src(filename, string) {
-  var src = require('stream').Readable({ objectMode: true })
-
-  src._read = function () {
-    this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(string) }))
-    this.push(null)
-  }
-
-  return src
-}

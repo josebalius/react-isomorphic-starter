@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import {processLogin} from 'client/actions/session';
+import {login} from 'client/actions/session';
 import {connect} from 'react-redux';
 
 @connect(null, dispatch => ({dispatch}))
 class Login extends React.Component {
   login(e) {
     e.preventDefault();
-    this.props.dispatch(processLogin('jose', 'test'));
+    this.props.dispatch(login('jose', 'test'));
   }
 
   render () {

@@ -1,4 +1,4 @@
-import {SUCCESSFUL_LOGIN} from 'client/constants/session';
+import {LOGIN, LOGOUT} from 'client/constants/session';
 
 const initialState = {
   token: null
@@ -6,7 +6,10 @@ const initialState = {
 
 export default function session(state = initialState, action) {
   switch(action.type) {
-    case SUCCESSFUL_LOGIN:
+    case LOGOUT:
+      return {...state, token: null};
+
+    case LOGIN:
       return {...state, token: action.token};
 
     default:

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Router} from 'react-router';
 
 @connect(state => ({session: state.session}))
 class Authenticated extends React.Component {
@@ -11,7 +12,11 @@ class Authenticated extends React.Component {
     super(props, context);
 
     if(!props.session || !props.session.token) {
-      //context.router.transitionTo('/login');
+      if(process.browser) {
+        context.router.transitionTo('login');
+      } else {
+        Router.transitionTo('/login');
+      }
     }
   }
 

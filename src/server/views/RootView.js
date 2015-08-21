@@ -4,13 +4,13 @@ import config from 'config';
 class RootView extends React.Component {
   render () {
 
-    let scriptList = config[(process.env.NODE_ENV === 'production') ? 'productionScripts' : 'developmentScripts'];
+    let scriptList = config.get('Scripts');
 
     let scripts = scriptList.map((script, k) => {
       return <script src={script} key={k}></script>
     });
 
-    let cssList = config[(process.env.NODE_ENV === 'production') ? 'productionCss' : 'developmentCss'];
+    let cssList = config.get('Css');
 
     let css = cssList.map((css, k) => {
       return <link rel="stylesheet" href={css} key={k} />

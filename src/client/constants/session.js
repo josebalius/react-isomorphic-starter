@@ -1,1 +1,2 @@
-export const SUCCESSFUL_LOGIN = 'SUCCESSFUL_LOGIN';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';

@@ -6,8 +6,15 @@ import {Router} from 'react-router';
 import {debugTools, store} from 'common/reduxInit';
 import {resolveData} from 'common/dataResolve';
 
-export default function universalContainer(location, render = true) {
-  let defer = q.defer();
+export default function universalContainer(location, res) {
+  let defer = q.defer(), abortRender = false;
+
+  if(!process.browser) {
+    Router.transitionTo = (path) => {
+      abortRender = true;
+      res.redirect(path);
+    };
+  }
 
   Router.run(clientRoutes, location, (err, routeState) => {
     if(err) {
@@ -21,29 +28,26 @@ export default function universalContainer(location, render = true) {
       return;
     }
 
-    resolveData(routeState.components, routeState.params).then(() => {
-      if(render) {
+    const InitialComponent = (
+      <Container debugTools={debugTools} store={store} isServer={true} routeState={routeState} />
+    );
 
-        const InitialComponent = (
-          <Container debugTools={debugTools} store={store} isServer={true} routeState={routeState} />
-        );
+    try {
+      let html = React.renderToString(InitialComponent);
 
-        try {
-          let html = React.renderToString(InitialComponent);
+      let RootView = require('server/views/RootView');
+      let HTML = React.renderToString(<RootView html={html} data={store.getState()} />);
 
-          let RootView = require('server/views/RootView');
-          let HTML = React.renderToString(<RootView html={html} data={store.getState()} />);
-
+      if(!abortRender) {
+        resolveData(routeState.components, routeState.params).then(() => {
           defer.resolve(HTML);
-        } catch (Exception) {
-          console.log(Exception);
-          defer.reject(Exception);
-        }
-
-      } else {
-        defer.resolve();
+        });
       }
-    });
+
+    } catch (Exception) {
+      console.log(Exception);
+      defer.reject(Exception);
+    }
 
   });
 

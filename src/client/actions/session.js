@@ -1,13 +1,19 @@
-import {SUCCESSFUL_LOGIN} from 'client/constants/session';
+import {LOGIN, LOGOUT} from 'client/constants/session';
 
-export function successfulLogin(token) {
-  return {type: SUCCESSFUL_LOGIN, token}
-}
-
-export function processLogin(username, password) {
+/**
+ * Example function that simulates an async call and then dispatches LOGIN
+ */
+export function login(username, password) {
   return function(dispatch) {
     setTimeout(function() {
-      dispatch(successfulLogin('12345'));
-    }, 0);
+      dispatch({type: LOGIN, token: 123});
+    }, 500);
   }
+}
+
+/**
+ * Logs the user out
+ */
+export function logout() {
+  return {type: LOGOUT};
 }

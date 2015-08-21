@@ -8,7 +8,7 @@ import universalContainer from 'common/universalContainer';
 export function renderApplication(req, res, next) {
   const location = new Location(req.path, req.query);
 
-  universalContainer(location, true).then((HTML) => {
+  universalContainer(location, res).then((HTML) => {
 
     if(!HTML) {
       return next();
@@ -21,6 +21,9 @@ export function renderApplication(req, res, next) {
   });
 }
 
+/**
+ * Test call for now
+ */
 export function homeCall(req, res) {
   res.send({success: true});
   res.end();
