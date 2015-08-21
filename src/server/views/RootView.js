@@ -13,7 +13,7 @@ class RootView extends React.Component {
     let cssList = config[(process.env.NODE_ENV === 'production') ? 'productionCss' : 'developmentCss'];
 
     let css = cssList.map((css, k) => {
-      return <link rel="stylesheet" href={css} />
+      return <link rel="stylesheet" href={css} key={k} />
     });
 
     return (

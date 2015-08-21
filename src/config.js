@@ -1,5 +1,7 @@
 export default {
   name: "react-isomorphic-starter",
+  productionAPI: '',
+  developmentAPI: 'http://localhost:3000/api',
   productionCss: [
     //'/bundle.css',
     '/bundle-lib.css'
@@ -16,5 +18,9 @@ export default {
     'http://localhost:8080/webpack-dev-server.js',
     'http://localhost:8080/dist/bundle.js',
     '/bundle-lib.js'
-  ]
+  ],
+
+  get(key) {
+    return this[process.env.NODE_ENV === 'production'] ? `production${key}` : `development${key}`;
+  }
 }

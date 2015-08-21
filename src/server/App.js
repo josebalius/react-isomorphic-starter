@@ -32,6 +32,7 @@ class Application {
     this.startServer();
     this.registerRoutes();
     this.app.use(renderApplication);
+    
     this.app.use('/api', this.router);
 
     this.app.use(function(req, res, next) {

@@ -5,13 +5,13 @@ import universalContainer from 'common/universalContainer';
 /**
  * Renders our application on the server side
  */
-export function renderApplication(req, res) {
+export function renderApplication(req, res, next) {
   const location = new Location(req.path, req.query);
 
   universalContainer(location, true).then((HTML) => {
 
     if(!HTML) {
-      return res.status(404).end('404');
+      return next();
     } else {
       res.end(HTML);
     }
@@ -19,4 +19,9 @@ export function renderApplication(req, res) {
   }, () => {
     res.end('Unexpected Error');
   });
+}
+
+export function homeCall(req, res) {
+  res.send({success: true});
+  res.end();
 }
