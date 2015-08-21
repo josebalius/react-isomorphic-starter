@@ -37,6 +37,8 @@ npm run build
 npm start
 ```
 
+## License
+
 The MIT License (MIT)
 
 Copyright (c) 2015 Jose Garcia
