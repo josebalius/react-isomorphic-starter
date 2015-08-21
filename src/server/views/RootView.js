@@ -19,7 +19,7 @@ class RootView extends React.Component {
     return (
       <html>
         <head>
-          <title>Spatially v0.0.1</title>
+          <title>React Isomorphic Starter</title>
           <meta charSet="utf-8" />
           <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
         </head>
