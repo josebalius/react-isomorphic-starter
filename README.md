@@ -1,5 +1,15 @@
 # react-isomorphic-starter
 
+## Features
+- Isomorphic (renders on server/client)
+- React
+- React Router
+- Redux
+- Hot module replacement
+- Webpack
+- Gulp
+- Sass
+
 ## Setup
 
 ```
