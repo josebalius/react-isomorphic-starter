@@ -2,6 +2,7 @@
 
 ## Features
 - Isomorphic (renders on server/client)
+- NodeJS (Express 4)
 - React
 - React Router
 - Redux
