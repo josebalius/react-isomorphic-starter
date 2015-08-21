@@ -29,7 +29,6 @@ export default function universalContainer(location, render = true) {
         );
 
         try {
-          // Only perform SSR in production
           let html = React.renderToString(InitialComponent);
 
           let RootView = require('server/views/RootView');

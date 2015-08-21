@@ -1,0 +1,26 @@
+{
+  "name": "react-isomorphic-starter",
+  "version": "0.0.1",
+  "homepage": "https://github.com/josebalius/react-isomorphic-starter",
+  "authors": [
+    "Jose Garcia <jose.balius@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fetch": "~0.9.0",
+    "bootstrap": "~3.3.5"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": ["dist/js/bootstrap.min.js", "dist/css/bootstrap.min.css"]
+    }
+  }
+}

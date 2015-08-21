@@ -23,7 +23,7 @@ export function promisify(query) {
 }
 
 export function resolveData(components, params) {
-  let allQueries = [], promises = [], defer = q.defer();
+  let promises = [], defer = q.defer();
 
   for(let component of components) {
     let query;

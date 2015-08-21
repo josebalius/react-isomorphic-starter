@@ -1,27 +1,27 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+import config from 'config';
 
 class RootView extends React.Component {
   render () {
 
-    let scripts;
+    let scriptList = config[(process.env.NODE_ENV === 'production') ? 'productionScripts' : 'developmentScripts'];
 
-    if(process.env.NODE_ENV === 'production') {
-      scripts = [
-        <script src="/bundle.js" key={1}></script>
-      ]
-    } else {
-      scripts = [
-        <script src="http://localhost:8080/webpack-dev-server.js" key={1}></script>,
-        <script src="http://localhost:8080/dist/bundle.js" key={2}></script>
-      ]
-    }
+    let scripts = scriptList.map((script, k) => {
+      return <script src={script} key={k}></script>
+    });
+
+    let cssList = config[(process.env.NODE_ENV === 'production') ? 'productionCss' : 'developmentCss'];
+
+    let css = cssList.map((css, k) => {
+      return <link rel="stylesheet" href={css} />
+    });
 
     return (
       <html>
         <head>
-          <title>React Isomorphic Starter</title>
+          <title>{config.name}</title>
           <meta charSet="utf-8" />
-          <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+          {css}
         </head>
         <body>
           <div id="root-view" dangerouslySetInnerHTML={{__html: this.props.html}}>
