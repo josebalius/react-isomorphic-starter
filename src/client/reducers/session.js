@@ -1,7 +1,7 @@
 import {LOGIN, LOGOUT, LOGIN_ERROR} from 'client/constants/session';
 
 const initialState = {
-  token: null,
+  token: (process.browser) ? Cookies.get('token') : null,
   error: null
 };
 
@@ -15,7 +15,10 @@ export default function session(state = initialState, action) {
       return {...state, token: null, error: null};
 
     case LOGIN:
-      Cookies.set('token', action.token);
+      if(typeof Cookies !== 'undefined') {
+        Cookies.set('token', action.token);
+      }
+      
       return {...state, token: action.token, error: null};
 
     default:

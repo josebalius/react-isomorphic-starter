@@ -5,12 +5,14 @@ import q from 'q';
 import {Router} from 'react-router';
 import {debugTools, store} from 'common/reduxInit';
 import {resolveData} from 'common/dataResolve';
+import {LOGIN} from 'client/constants/session';
 
-export default function universalContainer(location, res) {
+export default function universalContainer(location, req, res) {
   let defer = q.defer(), abortData = false;
 
   if(!process.browser) {
     Router.transitionTo = (path) => {
+      res.redirect(path);
       abortData = true;
     };
   }
@@ -25,6 +27,12 @@ export default function universalContainer(location, res) {
     if(!routeState) {
       defer.resolve(null);
       return;
+    }
+
+    if(req && req.cookies['token']) {
+      store.dispatch({type: LOGIN, token: req.cookies['token']});
+    } else if(req && !req.cookies['token']) {
+      store.dispatch({type: LOGIN, token: null});
     }
 
     const InitialComponent = (

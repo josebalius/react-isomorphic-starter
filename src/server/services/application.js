@@ -8,7 +8,7 @@ import universalContainer from 'common/universalContainer';
 export function renderApplication(req, res, next) {
   const location = new Location(req.path, req.query);
 
-  universalContainer(location, res).then((HTML) => {
+  universalContainer(location, req, res).then((HTML) => {
 
     if(!HTML) {
       return next();
