@@ -8,14 +8,9 @@ const initialState = {
 export default function session(state = initialState, action) {
   switch(action.type) {
     case LOGOUT:
-      Cookies.remove('token');
-      return {...state, token: null, error: null};
+      return {...state, token: null};
 
     case LOGIN:
-      if(typeof Cookies !== 'undefined') {
-        Cookies.set('token', action.token);
-      }
-
       return {...state, token: action.token};
 
     default:

@@ -7,11 +7,11 @@ import request from 'common/request';
  */
 export function login(username, password) {
   return function(dispatch) {
-
     request.post('/session', null, {
       username, password
     }).then((response) => {
       if(response.success) {
+        Cookies.set('token', response.token);
         dispatch({type: LOGIN, token: response.token});
       } else {
         dispatch({type: ERROR, error: 'Invalid username or password'});

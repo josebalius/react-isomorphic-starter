@@ -10,6 +10,7 @@ import {resolve} from 'common/dataResolve';
 class Home extends React.Component {
   logout() {
     this.props.dispatch(logout());
+    Cookies.remove('token');
   }
 
   render () {
