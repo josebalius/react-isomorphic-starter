@@ -1,4 +1,5 @@
-import {LOGIN, LOGOUT, LOGIN_ERROR} from 'client/constants/session';
+import {LOGIN, LOGOUT} from 'client/constants/session';
+import {ERROR} from 'client/constants/error';
 import request from 'common/request';
 
 /**
@@ -13,7 +14,7 @@ export function login(username, password) {
       if(response.success) {
         dispatch({type: LOGIN, token: response.token});
       } else {
-        dispatch({type: LOGIN_ERROR, error: 'Invalid username or password'});
+        dispatch({type: ERROR, error: 'Invalid username or password'});
       }
     });
 

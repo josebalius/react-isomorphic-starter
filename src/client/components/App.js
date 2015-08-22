@@ -13,16 +13,6 @@ class App extends React.Component {
     context.router.addTransitionHook(transitionHook);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.session.token && !this.props.session.token) {
-      // User has acquired session, go to home
-      this.context.router.transitionTo('home');
-    } else if(!nextProps.session.token && this.props.session.token) {
-      // User has lost session go to login
-      this.context.router.transitionTo('login');
-    }
-  }
-
   render() {
     return (
       <div className="container-fluid">

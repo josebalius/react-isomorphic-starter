@@ -6,7 +6,7 @@ import {logout} from 'client/actions/session';
 import {resolve} from 'common/dataResolve';
 
 @connect(null, dispatch => ({dispatch}))
-@resolve((params) => [getHome(params)])
+@resolve(params => [getHome(params)])
 class Home extends React.Component {
   logout() {
     this.props.dispatch(logout());

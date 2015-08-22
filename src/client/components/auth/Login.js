@@ -2,8 +2,18 @@ import React, { PropTypes } from 'react';
 import {login} from 'client/actions/session';
 import {connect} from 'react-redux';
 
-@connect(store => ({session: store.session}), dispatch => ({dispatch}))
+@connect(state => ({error: state.error, session: state.session}), dispatch => ({dispatch}))
 class Login extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.session.token) {
+      this.context.router.transitionTo('home');
+    }
+  }
+
   login(e) {
     e.preventDefault();
     let username = React.findDOMNode(this.refs.username).value;
@@ -18,8 +28,8 @@ class Login extends React.Component {
           <div className="well">
             <h2>Login</h2>
             <hr />
-            <p className="text-danger" style={{display: (this.props.session.error) ? '':'none'}}>
-              {this.props.session.error}
+            <p className="text-danger" style={{display: (this.props.error.message) ? '':'none'}}>
+              {this.props.error.message}
             </p>
             <form onSubmit={(e) => this.login(e)}>
               <div className="control-group">
@@ -40,5 +50,6 @@ class Login extends React.Component {
     )
   }
 }
+
 
 export default Login;

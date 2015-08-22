@@ -21,6 +21,12 @@ class Authenticated extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(!nextProps.session.token) {
+      this.context.router.transitionTo('login');
+    }
+  }
+
   render() {
     return this.props.children;
   }
