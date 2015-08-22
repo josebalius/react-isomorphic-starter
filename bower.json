@@ -16,11 +16,15 @@
   ],
   "dependencies": {
     "fetch": "~0.9.0",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "js-cookie": "~2.0.3"
   },
   "overrides": {
     "bootstrap": {
-      "main": ["dist/js/bootstrap.min.js", "dist/css/bootstrap.min.css"]
+      "main": [
+        "dist/js/bootstrap.min.js",
+        "dist/css/bootstrap.min.css"
+      ]
     }
   }
 }

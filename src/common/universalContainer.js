@@ -7,12 +7,11 @@ import {debugTools, store} from 'common/reduxInit';
 import {resolveData} from 'common/dataResolve';
 
 export default function universalContainer(location, res) {
-  let defer = q.defer(), abortRender = false;
+  let defer = q.defer(), abortData = false;
 
   if(!process.browser) {
     Router.transitionTo = (path) => {
-      abortRender = true;
-      res.redirect(path);
+      abortData = true;
     };
   }
 
@@ -38,7 +37,10 @@ export default function universalContainer(location, res) {
       let RootView = require('server/views/RootView');
       let HTML = React.renderToString(<RootView html={html} data={store.getState()} />);
 
-      if(!abortRender) {
+      // If we detect a redirect, then we don't load the data and simple render
+      if(abortData) {
+        defer.resolve(HTML);
+      } else {
         resolveData(routeState.components, routeState.params).then(() => {
           defer.resolve(HTML);
         });

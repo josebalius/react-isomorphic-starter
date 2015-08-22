@@ -28,7 +28,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.IgnorePlugin(new RegExp("^(node-mocks-http)$")),
+    new webpack.IgnorePlugin(new RegExp("^(node-mocks-http|RootView)$")),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development')

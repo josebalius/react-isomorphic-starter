@@ -11,8 +11,7 @@
   "globals": {
     "__DEV__": true,
     "__SERVER__": true,
-    "fetch": true
-  },
-  "rules": {
+    "fetch": true,
+    "Cookies": true
   }
 }

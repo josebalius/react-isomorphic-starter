@@ -22,9 +22,9 @@ export function renderApplication(req, res, next) {
 }
 
 /**
- * Test call for now
+ * Example call
  */
-export function homeCall(req, res) {
+export function home(req, res) {
   res.send({success: true});
   res.end();
 }
