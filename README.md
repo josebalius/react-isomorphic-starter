@@ -17,8 +17,6 @@ Inspired by https://github.com/erikras/react-redux-universal-hot-example and htt
 
 ```
 npm install
-npm install webpack -g
-npm install gulp -g
 ```
 
 ## Develop
@@ -37,6 +35,12 @@ npm run build
 
 ```
 npm start
+```
+
+## Test
+
+```
+npm test
 ```
 
 ## License
