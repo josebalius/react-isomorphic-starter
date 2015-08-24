@@ -1,7 +1,7 @@
 import path from '../../index';
 import expect from 'expect';
 import session from 'client/reducers/session';
-import {LOGOUT} from 'client/constants/session';
+import {LOGOUT, LOGIN} from 'client/constants/session';
 
 describe('session reducer', () => {
   it('should LOGOUT', () => {
@@ -12,5 +12,16 @@ describe('session reducer', () => {
     ).toEqual({
       token: null
     })
-  });
+  })
+
+  it('should LOGIN', () => {
+    expect(
+      session({token: null, }, {
+        type: LOGIN,
+        token: '123'
+      })
+    ).toEqual({
+      token: '123'
+    })
+  })
 })
