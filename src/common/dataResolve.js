@@ -2,11 +2,12 @@ import {store} from 'common/reduxInit';
 import q from 'q';
 import {Router} from 'react-router';
 import clientRoutes from 'client/routes';
-import universalContainer from 'common/universalContainer';
 
-export function transitionHook(nextState, router, cb) {
-  universalContainer(nextState.location);
-  cb();
+export function transitionHook(universalContainer) {
+  return function(nextState, router, cb) {
+    universalContainer(nextState.location);
+    cb();
+  }
 }
 
 export function resolve(query) {
