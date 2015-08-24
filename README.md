@@ -1,5 +1,7 @@
 # react-isomorphic-starter
 
+Inspired by https://github.com/erikras/react-redux-universal-hot-example and https://github.com/ericclemmons/react-resolver
+
 ## Features
 - Isomorphic (renders on server/client)
 - NodeJS (Express 4)
