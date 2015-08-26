@@ -13,5 +13,6 @@
     "__SERVER__": true,
     "fetch": true,
     "Cookies": true
-  }
+  },
+  "rules": {}
 }

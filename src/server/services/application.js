@@ -1,6 +1,8 @@
 import React from 'react';
 import Location from 'react-router/lib/Location';
-import universalContainer from 'common/universalContainer';
+import {routeManager} from 'common/routeManager';
+import RootView from 'server/views/RootView';
+import {store} from 'common/reduxInit';
 
 /**
  * Renders our application on the server side
@@ -8,12 +10,13 @@ import universalContainer from 'common/universalContainer';
 export function renderApplication(req, res, next) {
   const location = new Location(req.path, req.query);
 
-  universalContainer(location, req, res).then((HTML) => {
+  routeManager(location, req, res).then((html) => {
 
-    if(!HTML) {
+    if(!html) {
       return next();
     } else {
-      res.end(HTML);
+      const HTML = React.renderToString(<RootView html={html} data={store.getState()} />);
+      res.end(`<!DOCTYPE html>${HTML}`);
     }
 
   }, () => {

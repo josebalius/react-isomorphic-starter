@@ -1,5 +1,6 @@
 import config from 'config';
 import q from 'q';
+import request from 'superagent';
 
 const API = config.get('API'), IS_BROWSER = process.browser;
 
@@ -11,8 +12,19 @@ function get(url, query) {
     return serverRequest('get', url, query);
   }
 
-  let params = getParams(query, encodeQuery);
-  return fetch(`${API}${url}${params}`).then(response => response.json())
+  const params = getParams(query, encodeQuery);
+  const target = url.match(/http/) ? `${url}${params}` : `${API}${url}${params}`;
+  const defer = q.defer();
+
+  request.get(target).end((err, res) => {
+    if(res) {
+      defer.resolve(res.body);
+    } else {
+      defer.reject();
+    }
+  })
+
+  return defer.promise;
 }
 
 
@@ -24,24 +36,28 @@ function post(url, query, body, json = true) {
     return serverRequest('post', url, query, body);
   }
 
-  let params = getParams(query, encodeQuery);
+  const params = getParams(query, encodeQuery);
+  const target = url.match(/http/) ? `${url}${params}` : `${API}${url}${params}`;
 
-  let request = {
-    method: 'POST'
-  };
+  let req = request.post(target).send(body);
 
-  if(json) {
-    request.headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    };
-
-    request.body = JSON.stringify(body)
-  } else {
-    request.body = new FormData(body);
+  if(!json) {
+    req
+      .set('Accept', 'application/x-www-form-urlencoded')
+      .set('Content-Type', 'application/x-www-form-urlencoded');
   }
 
-  return fetch(`${API}${url}${params}`, request).then(response => response.json())
+  const defer = q.defer();
+
+  req.end((err, res) => {
+    if(res) {
+      defer.resolve(res.body);
+    } else {
+      defer.reject();
+    }
+  })
+
+  return defer.promise;
 }
 
 
@@ -69,14 +85,14 @@ function isServerRequest(url) {
 function getHandlers(type, url) {
   let endPoints = {}, routes = require('server/routes');
 
-  let createPoint = (url) => {
+  const createPoint = (url) => {
     if(typeof endPoints[url] === 'undefined') {
       endPoints[url] = {};
     }
     return endPoints[url];
   };
 
-  let routerInterface = {
+  const routerInterface = {
     get: (url, ...handlers) => {
       let point = createPoint(url);
       endPoints[url] = {...point, get: handlers}
@@ -98,11 +114,11 @@ function getHandlers(type, url) {
 
 
 function serverRequest(type, url, params, body) {
-  let defer = q.defer(), http = require('node-mocks-http');
+  const defer = q.defer(), http = require('node-mocks-http');
 
-  let handlers = getHandlers(type, url);
+  const handlers = getHandlers(type, url);
 
-  let request = http.createRequest({
+  const request = http.createRequest({
     method: type,
     url, params, body
   });

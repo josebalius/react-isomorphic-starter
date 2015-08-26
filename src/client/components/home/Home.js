@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {getHome} from 'client/actions/home';
 import {logout} from 'client/actions/session';
-import {resolve} from 'common/dataResolve';
+import {resolve} from 'common/dataManager';
 
 @connect(null, dispatch => ({dispatch}))
 @resolve(params => [getHome(params)])

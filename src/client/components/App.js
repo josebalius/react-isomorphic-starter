@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {transitionHook} from 'common/dataResolve';
-import universalContainer from 'common/universalContainer';
+import {transitionHook} from 'common/routeManager';
 
 @connect(state => ({session: state.session}))
 class App extends React.Component {
@@ -11,7 +10,7 @@ class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    context.router.addTransitionHook(transitionHook(universalContainer));
+    context.router.addTransitionHook(transitionHook);
   }
 
   render() {

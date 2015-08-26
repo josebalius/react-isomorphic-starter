@@ -3,13 +3,6 @@ import q from 'q';
 import {Router} from 'react-router';
 import clientRoutes from 'client/routes';
 
-export function transitionHook(universalContainer) {
-  return function(nextState, router, cb) {
-    universalContainer(nextState.location);
-    cb();
-  }
-}
-
 export function resolve(query) {
   return function(component) {
     component.query = query;

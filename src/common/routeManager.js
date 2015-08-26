@@ -1,13 +1,18 @@
 import React from 'react';
-import Container from 'client/Container';
 import clientRoutes from 'client/routes';
 import q from 'q';
-import {Router} from 'react-router';
+import Container from 'client/Container';
 import {debugTools, store} from 'common/reduxInit';
-import {resolveData} from 'common/dataResolve';
+import {resolveData} from 'common/dataManager';
 import {LOGIN} from 'client/constants/session';
+import Router from 'react-router'
 
-export default function universalContainer(location, req, res) {
+export function transitionHook(nextState, router, cb) {
+  routeManager(nextState.location);
+  cb();
+}
+
+export function routeManager(location, req, res) {
   let defer = q.defer(), abortData = false;
 
   if(!process.browser) {
@@ -15,6 +20,12 @@ export default function universalContainer(location, req, res) {
       res.redirect(path);
       abortData = true;
     };
+  }
+
+  if(req && req.cookies['token']) {
+    store.dispatch({type: LOGIN, token: req.cookies['token']});
+  } else if(req && !req.cookies['token']) {
+    store.dispatch({type: LOGIN, token: null});
   }
 
   Router.run(clientRoutes, location, (err, routeState) => {
@@ -29,12 +40,6 @@ export default function universalContainer(location, req, res) {
       return;
     }
 
-    if(req && req.cookies['token']) {
-      store.dispatch({type: LOGIN, token: req.cookies['token']});
-    } else if(req && !req.cookies['token']) {
-      store.dispatch({type: LOGIN, token: null});
-    }
-
     const InitialComponent = (
       <Container debugTools={debugTools} store={store} isServer={true} routeState={routeState} />
     );
@@ -42,15 +47,11 @@ export default function universalContainer(location, req, res) {
     try {
       let html = React.renderToString(InitialComponent);
 
-      let RootView = require('server/views/RootView');
-      let HTML = React.renderToString(<RootView html={html} data={store.getState()} />);
-
-      // If we detect a redirect, then we don't load the data and simple render
       if(abortData) {
-        defer.resolve(HTML);
+        defer.resolve(html);
       } else {
         resolveData(routeState.components, routeState.params).then(() => {
-          defer.resolve(HTML);
+          defer.resolve(html);
         });
       }
 
@@ -58,9 +59,7 @@ export default function universalContainer(location, req, res) {
       console.log(Exception);
       defer.reject(Exception);
     }
-
   });
-
 
   return defer.promise;
 }
