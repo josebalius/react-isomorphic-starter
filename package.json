@@ -43,6 +43,7 @@
     "gulp-babel": "5.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-develop-server": "^0.4.3",
+    "gulp-eslint": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
     "gulp-util": "^3.0.6",

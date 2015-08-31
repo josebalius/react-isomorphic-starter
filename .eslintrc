@@ -96,9 +96,7 @@
         "allowSingleLine": true
       }
     ],
-    "quotes": [
-      2, "single", "avoid-escape"
-    ],
+    "quotes": 0,
     "camelcase": [2, {
       "properties": "never"
     }],

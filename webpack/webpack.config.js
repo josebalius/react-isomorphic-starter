@@ -2,7 +2,7 @@ var path    = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry:  [
+  entry: [
     'webpack-dev-server/client?http://localhost:8080/',
     'webpack/hot/only-dev-server',
     './src/client'
@@ -14,16 +14,24 @@ module.exports = {
   },
   resolve: {
     modulesDirectories: ['node_modules', 'src'],
-    extensions:         ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx']
   },
   module: {
+    preLoaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'eslint-loader?stage=0'
+    }],
     loaders: [
       {
-        test:    /\.js?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         loaders: ['react-hot', 'babel?stage=0']
       }
     ]
+  },
+  eslint: {
+    failOnError: true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

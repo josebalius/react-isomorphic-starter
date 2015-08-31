@@ -5,6 +5,7 @@ var wiredep = require('wiredep');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var rename = require('gulp-rename');
+var eslint = require('gulp-eslint');
 
 var config = {
   srcPath: './src/**/*.js',
@@ -37,7 +38,14 @@ gulp.task('bower-generate-css', ['server-build'], function bowerGenerateCss() {
 
 });
 
-gulp.task('server-build', function serverBuild() {
+gulp.task('lint', function lint() {
+  return gulp.src(config.srcPath)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError())
+});
+
+gulp.task('server-build', ['lint'], function serverBuild() {
   return gulp.src(config.srcPath)
     .pipe(babel({
       stage: 0
@@ -45,9 +53,9 @@ gulp.task('server-build', function serverBuild() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('server', ['server-build', 'bower-generate', 'bower-generate-css', 'sass-build'], function serverBuild() {
+gulp.task('server', ['lint', 'server-build', 'bower-generate', 'bower-generate-css', 'sass-build'], function serverBuild() {
   server.listen({path: config.serverDistPath});
-  gulp.watch([config.srcPath, config.clientSassPath], ['server-build', 'sass-build', server.restart]);
+  gulp.watch([config.srcPath, config.clientSassPath], ['lint', 'server-build', 'sass-build', server.restart]);
 });
 
 gulp.task('build', ['server-build', 'bower-generate', 'bower-generate-css', 'sass-build']);
