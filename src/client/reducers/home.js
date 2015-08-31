@@ -6,10 +6,10 @@ const initialState = {
 
 export default function home(state = initialState, action) {
   switch(action.type) {
-    case GET_HOME:
-      return {...state, data: action.data};
+  case GET_HOME:
+    return {...state, data: action.data};
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }

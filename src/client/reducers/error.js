@@ -6,10 +6,10 @@ const initialState = {
 
 export default function session(state = initialState, action) {
   switch(action.type) {
-    case ERROR:
-      return {...state, message: action.error};
+  case ERROR:
+    return {...state, message: action.error};
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }

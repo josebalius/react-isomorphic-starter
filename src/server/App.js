@@ -4,7 +4,6 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import jwt from 'jwt-simple';
 import http from 'http';
 import {renderApplication} from 'server/services/application';
 
@@ -41,7 +40,7 @@ class Application {
       next(err);
     });
 
-    this.app.use(function(err, req, res, next) {
+    this.app.use(function(err, req, res) {
       res.status(err.status || 500).end();
       res.end();
     });

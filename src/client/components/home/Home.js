@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react'
-import {Link} from 'react-router';
+import React from 'react'
 import {connect} from 'react-redux';
 import {getHome} from 'client/actions/home';
 import {logout} from 'client/actions/session';

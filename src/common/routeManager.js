@@ -7,13 +7,9 @@ import {resolveData} from 'common/dataManager';
 import {LOGIN} from 'client/constants/session';
 import Router from 'react-router'
 
-export function transitionHook(nextState, router, cb) {
-  routeManager(nextState.location);
-  cb();
-}
-
 export function routeManager(location, req, res) {
-  let defer = q.defer(), abortData = false;
+  const defer = q.defer();
+  let abortData = false;
 
   if(!process.browser) {
     Router.transitionTo = (path) => {
@@ -22,9 +18,9 @@ export function routeManager(location, req, res) {
     };
   }
 
-  if(req && req.cookies['token']) {
-    store.dispatch({type: LOGIN, token: req.cookies['token']});
-  } else if(req && !req.cookies['token']) {
+  if(req && req.cookies.token) {
+    store.dispatch({type: LOGIN, token: req.cookies.token});
+  } else if(req && !req.cookies.token) {
     store.dispatch({type: LOGIN, token: null});
   }
 
@@ -45,7 +41,7 @@ export function routeManager(location, req, res) {
     );
 
     try {
-      let html = React.renderToString(InitialComponent);
+      const html = React.renderToString(InitialComponent);
 
       if(abortData) {
         defer.resolve(html);
@@ -62,4 +58,9 @@ export function routeManager(location, req, res) {
   });
 
   return defer.promise;
+}
+
+export function transitionHook(nextState, router, cb) {
+  routeManager(nextState.location);
+  cb();
 }

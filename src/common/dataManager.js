@@ -1,7 +1,5 @@
 import {store} from 'common/reduxInit';
 import q from 'q';
-import {Router} from 'react-router';
-import clientRoutes from 'client/routes';
 
 export function resolve(query) {
   return function(component) {
@@ -47,4 +45,4 @@ export function resolveData(components, params) {
 
   return defer.promise;
 
-};
+}

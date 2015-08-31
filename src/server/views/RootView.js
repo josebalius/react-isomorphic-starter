@@ -1,18 +1,17 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import config from 'config';
 
 class RootView extends React.Component {
-  render () {
+  render() {
+    const scriptList = config.get('Scripts');
 
-    let scriptList = config.get('Scripts');
-
-    let scripts = scriptList.map((script, k) => {
+    const scripts = scriptList.map((script, k) => {
       return <script src={script} key={k}></script>
     });
 
-    let cssList = config.get('Css');
+    const cssList = config.get('Css');
 
-    let css = cssList.map((css, k) => {
+    const css = cssList.map((css, k) => {
       return <link rel="stylesheet" href={css} key={k} />
     });
 

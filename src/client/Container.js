@@ -15,15 +15,15 @@ class Container extends React.Component {
           {routes}
         </Router>
       )
-    } else {
-      let {history} = require('react-router/lib/BrowserHistory');
-
-      return (
-        <Router history={history}>
-          {routes}
-        </Router>
-      )
     }
+
+    let {history} = require('react-router/lib/BrowserHistory');
+
+    return (
+      <Router history={history}>
+        {routes}
+      </Router>
+    )
 
   }
 

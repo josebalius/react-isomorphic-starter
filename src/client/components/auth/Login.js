@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {login} from 'client/actions/session';
 import {connect} from 'react-redux';
 
@@ -28,7 +28,7 @@ class Login extends React.Component {
           <div className="well">
             <h2>Login</h2>
             <hr />
-            <p className="text-danger" style={{display: (this.props.error.message) ? '':'none'}}>
+            <p className="text-danger" style={{display: (this.props.error.message) ? '' : 'none'}}>
               {this.props.error.message}
             </p>
             <form onSubmit={(e) => this.login(e)}>

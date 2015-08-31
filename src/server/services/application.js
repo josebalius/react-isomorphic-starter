@@ -14,10 +14,10 @@ export function renderApplication(req, res, next) {
 
     if(!html) {
       return next();
-    } else {
-      const HTML = React.renderToString(<RootView html={html} data={store.getState()} />);
-      res.end(`<!DOCTYPE html>${HTML}`);
     }
+
+    const HTML = React.renderToString(<RootView html={html} data={store.getState()} />);
+    res.end(`<!DOCTYPE html>${HTML}`);
 
   }, () => {
     res.end('Unexpected Error');

@@ -4,6 +4,24 @@ import request from 'superagent';
 
 const API = config.get('API'), IS_BROWSER = process.browser;
 
+function encodeQuery(query) {
+  const ret = [];
+
+  for(const d in query) {
+    ret.push(`${encodeURIComponent(d)}=${encodeURIComponent(query[d])}`);
+  }
+
+  return ret.join('&');
+}
+
+function getParams(query, encode) {
+  return (query) ? `?${encode(query)}` : '';
+}
+
+function isServerRequest(url) {
+  return !IS_BROWSER && !url.match(/http/);
+}
+
 /**
  * GET method for all API requests
  */
@@ -39,7 +57,7 @@ function post(url, query, body, json = true) {
   const params = getParams(query, encodeQuery);
   const target = url.match(/http/) ? `${url}${params}` : `${API}${url}${params}`;
 
-  let req = request.post(target).send(body);
+  const req = request.post(target).send(body);
 
   if(!json) {
     req
@@ -61,29 +79,8 @@ function post(url, query, body, json = true) {
 }
 
 
-function getParams(query, encode) {
-  return (query) ? `?${encode(query)}` : '';
-}
-
-
-function encodeQuery(query) {
-  let ret = [];
-
-  for(let d in query) {
-    ret.push(`${encodeURIComponent(d)}=${encodeURIComponent(query[d])}`);
-  }
-
-  return ret.join('&');
-}
-
-
-function isServerRequest(url) {
-  return !IS_BROWSER && !url.match(/http/);
-}
-
-
 function getHandlers(type, url) {
-  let endPoints = {}, routes = require('server/routes');
+  const endPoints = {}, routes = require('server/routes');
 
   const createPoint = (url) => {
     if(typeof endPoints[url] === 'undefined') {
@@ -107,9 +104,9 @@ function getHandlers(type, url) {
 
   if(endPoints[url][type.toLowerCase()]) {
     return endPoints[url][type.toLowerCase()];
-  } else {
-    return [];
   }
+
+  return [];
 }
 
 

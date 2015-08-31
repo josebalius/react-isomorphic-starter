@@ -1,6 +1,8 @@
+/* eslint-disable */
 import React from 'react';
-import {Route, DefaultRoute} from 'react-router';
+/* eslint-enable */
 
+import {Route} from 'react-router';
 import App from 'client/components/App';
 import Authenticated from 'client/components/auth/Authenticated';
 import Home from 'client/components/home/Home';
