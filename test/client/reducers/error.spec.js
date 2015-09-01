@@ -1,4 +1,5 @@
-import path from '../../index';
+require('../../index');
+
 import expect from 'expect';
 import error from 'client/reducers/error';
 import {ERROR} from 'client/constants/error';

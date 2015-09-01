@@ -1,7 +1,9 @@
-import path from '../../index';
+require('../../index');
+
 import expect from 'expect';
 import {logout, login} from 'client/actions/session';
 import {LOGOUT, LOGIN} from 'client/constants/session';
+import {ERROR} from 'client/constants/error';
 
 describe('session actions', () => {
   it('should LOGOUT', () => {

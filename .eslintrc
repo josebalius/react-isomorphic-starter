@@ -11,7 +11,9 @@
   "globals": {
     "__DEV__": true,
     "__SERVER__": true,
-    "Cookies": true
+    "Cookies": true,
+    "describe": true,
+    "it": true
   },
   "rules": {
     "strict": [2, "never"],

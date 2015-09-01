@@ -1,4 +1,5 @@
-import path from '../../index';
+require('../../index');
+
 import expect from 'expect';
 import session from 'client/reducers/session';
 import {LOGOUT, LOGIN} from 'client/constants/session';

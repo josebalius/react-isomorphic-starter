@@ -1,4 +1,5 @@
-import path from '../../index';
+require('../../index');
+
 import expect from 'expect';
 import home from 'client/reducers/home';
 import {GET_HOME} from 'client/constants/home';

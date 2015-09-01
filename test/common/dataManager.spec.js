@@ -1,21 +1,9 @@
-import index from '../index';
+require('../../index');
+
 import expect from 'expect';
-import {resolve, resolveData, promisify} from 'common/dataManager';
+import {resolve, promisify} from 'common/dataManager';
 
 describe('isomorphic data resolver', () => {
-  // it('should provide a transitionHook', () => {
-  //   let called = false;
-  //   transitionHook((location) => {
-  //     expect(location).toEqual('123');
-  //   })({location: '123'}, null, () => {
-  //     called = true;
-  //   });
-  //
-  //   setTimeout(() => {
-  //     expect(called).toEqual(true);
-  //   }, 0);
-  // });
-
   it('should provide a resolve decorator', () => {
     let component = {};
 
