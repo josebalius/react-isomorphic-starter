@@ -5,7 +5,7 @@ import Container from 'client/Container';
 import {debugTools, store} from 'common/reduxInit';
 import {resolveData} from 'common/dataManager';
 import {LOGIN} from 'client/constants/session';
-import Router from 'react-router'
+import Router from 'react-router';
 
 export function routeManager(location, req, res) {
   const defer = q.defer();
